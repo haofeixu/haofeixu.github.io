@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Unifying Flow, Stereo and Depth Estimation">
+  <meta name="keywords" content="Dense correspondence, flow, stereo, depth, Transformer, cross-attention">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UniMatch</title>
+
+  <!-- Bootstrap -->
+  <link href="static/css/bootstrap-4.4.1.css" rel="stylesheet">
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./resources/match_icon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title" style="margin-bottom: 0"><strong>Unifying Flow, Stereo and Depth Estimation</strong></h1>
+
+          <div class="column is-full_width">
+          </div>
+          
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://haofeixu.github.io/">Haofei Xu</a><sup>1,2</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=9jH5v74AAAAJ">Jing Zhang</a><sup>3</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block">
+              <a href="https://jianfei-cai.github.io/">Jianfei Cai</a><sup>4</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=VxAuxMwAAAAJ">Hamid Rezatofighi</a><sup>4</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block">
+              <a href="https://www.yf.io/">Fisher Yu</a><sup>1</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;<br>
+            <span class="author-block">
+            <a href="https://scholar.google.com/citations?user=RwlJNLcAAAAJ">Dacheng Tao</a><sup>3</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block">
+              <a href="http://www.cvlibs.net/">Andreas Geiger</a><sup>2,5</sup>
+            </span>
+          </div>
+
+          <!-- <br> -->
+
+          <div class="column is-full_width">
+            <h2 class="title is-4">TPAMI 2023</h2>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>ETH Zurich</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block"><sup>2</sup>University of Tübingen</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block"><sup>3</sup>The University of Sydney</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block"><sup>4</sup>Monash University</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block"><sup>5</sup>MPI for Intelligent Systems, Tübingen</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2211.05783"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Slides Link. -->
+              <span class="link-block">
+                <a href="https://haofeixu.github.io/slides/20221228_synced_unimatch.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                   <span class="icon">
+                    <img width="18" alt="Colab logo" src="./static/images/slides.png"/>
+                </span>
+                  <span>Slides</span>
+                </a>
+              </span>
+              <!-- Bilibili Link. -->
+              <span class="link-block">
+                <a href="https://www.bilibili.com/video/BV1uG4y1y7ms"
+                   class="external-link button is-normal is-rounded is-dark disabled">
+                  <span class="icon">
+                    <img width="20" alt="Bilibili logo" src="https://www.bilibili.com/favicon.ico?v=1"/>
+                  </span>
+                  <span>Video</span>
+                  </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/autonomousvision/unimatch"
+                   class="external-link button is-normal is-rounded is-dark disabled">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Colab Link. -->
+              <span class="link-block">
+                <a href="https://colab.research.google.com/drive/1r5m-xVy3Kw60U-m5VB-aQ98oqqg_6cab?usp=sharing"
+                   class="external-link button is-normal is-rounded is-dark disabled">
+                  <span class="icon">
+                      <img width="20" alt="Colab logo" src="./static/images/colab.png"/>
+                  </span>
+                  <span>Colab</span>
+                  </a>
+              </span>
+              <!-- HuggingFace Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/spaces/haofeixu/unimatch"
+                   class="external-link button is-normal is-rounded is-dark disabled">
+                  <span class="icon">
+                      <img width="20" alt="HuggingFace logo" src="./static/images/huggingface.png"/>
+                  </span>
+                  <span>Demo</span>
+                  </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./resources/teaser.png" class="center">
+      <h2 class="subtitle has-text-centered" style="margin-top: 15px">
+        A unified model for three motion and 3D perception tasks.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-flower">
+          <video poster="" id="flower" autoplay controls muted loop height="100%">
+            <source src="https://s3.eu-central-1.amazonaws.com/avg-projects/unimatch/demo/flow-stereo-sintel-alley_1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item item-ancient">
+          <video poster="" id="ancient" autoplay controls muted loop height="100%">
+            <source src="https://s3.eu-central-1.amazonaws.com/avg-projects/unimatch/demo/flow-stereo-kitti-2011_09_26_drive_0059.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-horns">
+          <video poster="" id="horns" autoplay controls muted loop height="100%">
+            <source src="https://s3.eu-central-1.amazonaws.com/avg-projects/unimatch/demo/stereo-irs-supermarket.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-leaves">
+          <video poster="" id="leaves" autoplay controls muted loop height="100%">
+            <source src="https://s3.eu-central-1.amazonaws.com/avg-projects/unimatch/demo/stereo-leftright-kitti-2011_09_28_drive_0038.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-grocery_flower">
+          <video poster="" id="grocery_flower" autoplay controls muted loop height="100%">
+            <source src="https://s3.eu-central-1.amazonaws.com/avg-projects/unimatch/demo/flow-fwdbwd-sintel-cave_3.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-cabinet">
+          <video poster="" id="cabinet" autoplay controls muted loop height="100%">
+            <source src="https://s3.eu-central-1.amazonaws.com/avg-projects/unimatch/demo/stereo-drivingstereo-test-2018-07-11-14-48-52.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-room">
+          <video poster="" id="room" autoplay controls muted loop height="100%">
+            <source src="https://s3.eu-central-1.amazonaws.com/avg-projects/unimatch/demo/flow-davis-skate-jump.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-trex">
+          <video poster="" id="trex" autoplay controls muted loop height="100%">
+            <source src="https://s3.eu-central-1.amazonaws.com/avg-projects/unimatch/demo/flow-davis-salsa.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+          
+      </div>
+    </div>
+  </div>
+   	<div align="center">
+		Results on unseen videos.
+	</div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Highlights -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3" style="margin-top: -30px">Highlights</h2>
+        <div class="content has-text-justified">
+          <ul>
+            <li style="font-size:18px">A unified dense correspondence matching formulation and model for three tasks.</li>
+            <li style="font-size:18px">Our unified model naturally enables cross-task transfer (flow &#8594; stereo, flow &#8594; depth) since the model architecture and parameters are shared across tasks.</li>
+            <li style="font-size:18px">State-of-the-art or competitive performance on 10 popular flow, stereo and depth datasets, while being simpler and more effcient in terms of model design and inference speed.</li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3" style="margin-top: -20px">Overview</h2>
+
+        <img src="./resources/framework.png" class="center">
+
+        <h2 class="subtitle has-text-centered" style="margin-top: 15px">
+          Strong features + parameter-free matching layers &rArr; a unified model for flow/stereo/depth. <br>
+          An additional self-attention layer to propagate the high-quality predictions to unmatched regions.
+        </h2>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3" style="margin-top: -20px">Cross-Task Transfer</h2>
+
+        <img src="./resources/flow_to_depth_transfer_vis.png" class="center">
+
+        <h2 class="subtitle has-text-centered" style="margin-top: 15px">
+          <strong>Flow to depth transfer.</strong> We use an optical flow model pretrained on Chairs and Things datasets to directly predict depth on the ScanNet dataset, without any finetuning. The performance can be further improved by finetuning for the depth task.
+        </h2>
+
+        <img src="./resources/cross_task_transfer_curve.png" class="center">
+        <h2 class="subtitle has-text-centered" style="margin-top: 15px">
+          When finetuning with a pretrained flow model as initialization, we not only enjoy faster training speed for stereo and depth, but also achieve better performance.
+        </h2>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3" style="margin-top: -20px">Results</h2>
+
+        <img src="./resources/gmflow_raft_refine.png" class="center">
+        <h2 class="subtitle has-text-centered" style="margin-top: 15px">
+          Our GMFlow with only one refinement outperforms RAFT with 31 refinements on Sintel dataset.
+        </h2>
+
+        <img src="./resources/sota_compare.png" class="center">
+        <h2 class="subtitle has-text-centered" style="margin-top: 15px">
+          We achieve the <strong>1st</strong> places on Sintel (clean), Middlebury (rms metric) and Argoverse benchmarks.
+        </h2>
+
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 loop
+                 width="90%">
+            <source src="./resources/gmflow_vs_raft_vis.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <h2 class="subtitle has-text-centered" style="margin-top: 15px">
+          Our GMFlow better captures fast-moving small object than RAFT.
+        </h2>
+
+        <img src="./resources/middlebury_compare.png" class="center">
+        <h2 class="subtitle has-text-centered" style="margin-top: 15px">
+          Our GMStereo produces sharper object structures than RAFT-Stereo and CREStereo.
+        </h2>
+
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+<section class="section" id="Related">
+  <div class="container is-max-desktop content">
+    <h2 class="title" style="margin-top: -60px">Related Work</h2>
+    This project is developed based on our previous works: 
+    <div class="content has-text-justified">
+      <ul>
+        <li><a href="https://arxiv.org/abs/2111.13680">GMFlow: Learning Optical Flow via Global Matching, CVPR 2022, Oral</a></li>
+        <li><a href="https://arxiv.org/abs/2104.13918">High-Resolution Optical Flow from 1D Attention and Correlation, ICCV 2021, Oral</a></li>
+        <li><a href="https://arxiv.org/abs/2004.09548">AANet: Adaptive Aggregation Network for Efficient Stereo Matching, CVPR 2020</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title" style="margin-top: -60px">BibTeX</h2>
+    <pre><code>@article{xu2023unifying,
+      title={Unifying Flow, Stereo and Depth Estimation},
+      author={Xu, Haofei and Zhang, Jing and Cai, Jianfei and Rezatofighi, Hamid and Yu, Fisher and Tao, Dacheng and Geiger, Andreas},
+      journal={IEEE Transactions on Pattern Analysis and Machine Intelligence},
+      year={2023}
+    }</code></pre>
+    <br>
+    This work is a substantial extension of our previous conference paper <a href="https://arxiv.org/abs/2111.13680">GMFlow (CVPR 2022, Oral)</a>, please consider citing GMFlow as well if you found this work useful in your research.
+    <br><br>
+    <pre><code>@inproceedings{xu2022gmflow,
+      title={GMFlow: Learning Optical Flow via Global Matching},
+      author={Xu, Haofei and Zhang, Jing and Cai, Jianfei and Rezatofighi, Hamid and Tao, Dacheng},
+      booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+      pages={8121-8130},
+      year={2022}
+    }
+</code></pre>
+  </div>
+</section>
+
+
+<!-- footnote -->
+<table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+  <tr>
+    <td>
+      <br>
+      <p align="center">
+        <font size="2">
+          <a href="https://github.com/nerfies/nerfies.github.io">
+            <font size="2" color="lightgray">awesome webpage template</font>
+          </a>
+          <br>
+        </font>
+      </p>
+      <br>
+    </td>
+  </tr>
+</table>
+
+
+</body>
+</html>
