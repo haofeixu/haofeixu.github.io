@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="MuRF: Multi-Baseline Radiance Fields">
+  <meta name="keywords" content="multi-baseline, radiance fields">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MuRF</title>
+
+  <!-- Bootstrap -->
+  <link href="static/css/bootstrap-4.4.1.css" rel="stylesheet">
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./assets/eyes.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+</head>
+<body>
+
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://haofeixu.github.io">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://haofeixu.github.io/unimatch/">
+            UniMatch - TPAMI 2023
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title" style="margin-bottom: 0"><strong>MuRF: Multi-Baseline Radiance Fields</strong></h1>
+
+          <div class="column is-full_width">
+          </div>
+          
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://haofeixu.github.io/">Haofei Xu</a><sup>1,2</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block">
+              <a href="https://apchenstu.github.io/">Anpei Chen</a><sup>1,2</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block">
+              <a href="https://donydchen.github.io/">Yuedong Chen</a><sup>3</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block">
+              <a href="https://people.ee.ethz.ch/~csakarid/">Christos Sakaridis</a><sup>1</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block">
+              <a href="https://yulunzhang.com/">Yulun Zhang</a><sup>1</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;<br>
+            <span class="author-block">
+            <a href="https://people.inf.ethz.ch/marc.pollefeys/">Marc Pollefeys</a><sup>1</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block">
+              <a href="http://www.cvlibs.net/">Andreas Geiger</a><sup>2,&dagger;</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block">
+              <a href="https://www.yf.io/">Fisher Yu</a><sup>1,&dagger;</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;<br>
+            </span>
+          </div>
+
+          <!-- <div class="column is-full_width">
+            <h2 class="title is-4">Nature 2024</h2>
+          </div> -->
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>ETH Zurich</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block"><sup>2</sup>University of Tübingen, Tübingen AI Center</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block"><sup>3</sup>Monash University</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block"><sup>&dagger;</sup>Joint last author</span>&nbsp;&nbsp;&nbsp;&nbsp;
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2312.xxxxx"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Slides Link. -->
+              <!-- <span class="link-block">
+                <a href="https://haofeixu.github.io/slides/20221228_synced_unimatch.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                   <span class="icon">
+                    <img width="18" alt="Colab logo" src="./static/images/slides.png"/>
+                </span>
+                  <span>Slides</span>
+                </a>
+              </span> -->
+
+              <!-- Bilibili Link. -->
+              <!-- <span class="link-block">
+                <a href="https://www.bilibili.com/video/BV1uG4y1y7ms"
+                   class="external-link button is-normal is-rounded is-dark disabled">
+                  <span class="icon">
+                    <img width="20" alt="Bilibili logo" src="https://www.bilibili.com/favicon.ico?v=1"/>
+                  </span>
+                  <span>Video</span>
+                  </a>
+              </span> -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/autonomousvision/murf"
+                   class="external-link button is-normal is-rounded is-dark disabled">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+
+              <!-- Colab Link. -->
+              <!-- <span class="link-block">
+                <a href="https://colab.research.google.com/drive/1r5m-xVy3Kw60U-m5VB-aQ98oqqg_6cab?usp=sharing"
+                   class="external-link button is-normal is-rounded is-dark disabled">
+                  <span class="icon">
+                      <img width="20" alt="Colab logo" src="./static/images/colab.png"/>
+                  </span>
+                  <span>Colab</span>
+                  </a>
+              </span> -->
+              <!-- HuggingFace Link. -->
+              <!-- <span class="link-block">
+                <a href="https://huggingface.co/spaces/haofeixu/unimatch"
+                   class="external-link button is-normal is-rounded is-dark disabled">
+                  <span class="icon">
+                      <img width="20" alt="HuggingFace logo" src="./static/images/huggingface.png"/>
+                  </span>
+                  <span>Demo</span>
+                  </a>
+              </span> -->
+            </div>
+          </div>
+
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./assets/teaser.png" class="center">
+      <h2 class="subtitle has-text-centered" style="margin-top: 15px">
+        MuRF supports multiple different baseline settings.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel" data-slides-to-show="2">
+        <div class="item item-room">
+          <video poster="" id="room" autoplay controls muted loop height="100%">
+            <source src="videos/realestate_2view_sample1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-grocery_flower">
+          <video poster="" id="grocery_flower" autoplay controls muted loop height="100%">
+            <source src="videos/realestate_2view_sample2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-leaves">
+          <video poster="" id="leaves" autoplay controls muted loop height="100%">
+            <source src="videos/realestate_2view_sample3.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-trex">
+          <video poster="" id="trex" autoplay controls muted loop height="100%">
+            <source src="videos/mipnerf360_2view_sample1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-trex">
+          <video poster="" id="trex" autoplay controls muted loop height="100%">
+            <source src="videos/mipnerf360_2view_sample2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-trex">
+          <video poster="" id="trex" autoplay controls muted loop height="100%">
+            <source src="videos/mipnerf360_2view_sample3.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+   	<div align="center">
+		Feed-forward novel view synthesis on unseen scenes from 2 input views.
+	</div>
+  <br>
+
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Highlights -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3" style="margin-top: -30px">TL;DR</h2>
+        <div class="content has-text-justified">
+          <ul>
+            <li style="font-size:16px">A general feed-forward approach to solving sparse view synthesis under multiple different baseline settings (small and large baselines, and different number of input views).</li>
+            <li style="font-size:16px">A target view frustum volume representation and a convolutional radiance field decoder enable high-quality novel view synthesis.</li>
+            <li style="font-size:16px">State-of-the-art performance across multiple different baseline settings and diverse datasets (DTU, RealEstate10K, LLFF, and Mip-NeRF 360 dataset).</li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3" style="margin-top: -20px">Overview</h2>
+
+        <img src="./assets/pipeline.png" class="center">
+
+        <h2 class="subtitle has-text-centered" style="margin-top: 15px; font-size: 17px">
+          Multi-view image encoder + target view frustum volume + convolutional radiance decoder &rArr; high-quality rendering
+        </h2>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3" style="margin-top: -20px">Comparisons across Multiple Baselines</h2>
+
+        <img src="./assets/curve_multi_baseline.jpg" class="center">
+        <h2 class="subtitle has-text-centered" style="margin-top: 15px; font-size: 17px">
+          Previous methods are specifically designed for either small (e.g., <a href="https://arxiv.org/abs/2112.01517">ENeRF</a>) or large (e.g., <a href="https://arxiv.org/abs/2304.08463">AttnRend</a>) baselines. However, no existing method performs well on both. See the visual comparisons on DTU <a href="assets/dtu_multi_baseline_vis.png">here</a> and RealEstate10K <a href="assets/realestate_multi_baseline_vis.png">here</a>.
+        </h2>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3" style="margin-top: -20px">System-Level Comparisons</h2>
+
+        <img src="./assets/dtu_realestate_llff_bar_comparison.png" class="center">
+
+        <h2 class="subtitle has-text-centered" style="margin-top: 15px; font-size: 17px">
+          MuRF achieves state-of-the-art performance under various evaluation settings.
+        </h2>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop" style="max-width: 1000px;">
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3" style="margin-top: -20px">DTU</h2>
+
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 loop
+                 width="100%"
+                 style="margin-bottom: -20px;"
+                 >
+            <source src="videos/dtu_compare_2view.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <div align="center">
+          Feed-forward novel view synthesis on unseen scenes from 2 input views.
+        </div>
+        <br>
+        <br>
+
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 loop
+                 width="100%"
+                 style="margin-bottom: -20px;"
+                 >
+            <source src="videos/dtu_compare_3view.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <div align="center">
+          Feed-forward novel view synthesis on unseen scenes from 3 input views.
+        </div>
+        <br>
+        <br>
+
+        <h2 class="title is-3" style="margin-top: -20px">RealEstate10K</h2>
+
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 loop
+                 width="100%"
+                 >
+            <source src="videos/realestate_compare_2view_sample1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 loop
+                 width="100%"
+                 >
+            <source src="videos/realestate_compare_2view_sample2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 loop
+                 width="100%"
+                 >
+            <source src="videos/realestate_compare_2view_sample3.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 loop
+                 width="100%"
+                 style="margin-bottom: -20px;"
+                 >
+            <source src="videos/realestate_compare_2view_sample4.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+
+        <div align="center">
+          Feed-forward novel view synthesis on unseen scenes from 2 input views.
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="section" id="Acknowledgements">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3">Acknowledgements</h2>
+    We thank Shaofei Wang, Zehao Yu and Stefano Esposito for the insightful comments on the early draft of this work. We thank Tobias Fischer and Kashyap Chitta for the constructive discussions. We thank Takeru Miyato for the help with the RealEstate10K dataset. Andreas Geiger was supported by the ERC Starting Grant LEGO-3D (850533) and the DFG EXC number 2064/1 - project number 390727645.
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title" style="margin-top: -60px">BibTeX</h2>
+    <pre><code>@article{xu2023murf,
+      title={MuRF: Multi-Baseline Radiance Fields},
+      author={Xu, Haofei and Chen, Anpei and Chen, Yuedong and Sakaridis, Christos and Zhang, Yulun and Pollefeys, Marc and Geiger, Andreas and Yu, Fisher},
+      journal={arXiv:2312.xxxxx},
+      year={2023}
+    }</code></pre>
+</code></pre>
+  </div>
+</section>
+
+<table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+  <tr>
+    <td>
+      <br>
+      <p align="center">
+        <font size="2">
+          <a href="https://github.com/nerfies/nerfies.github.io">
+            <font size="2" color="lightgray">awesome webpage template</font>
+          </a>
+          <br>
+        </font>
+      </p>
+      <br>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>
