@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="DepthSplat: Connecting Gaussian Splatting and Depth">
+  <meta name="keywords" content="Gaussian Splatting, Multi-View Depth, Monocular Depth">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DepthSplat</title>
+
+  <!-- Bootstrap -->
+  <link href="static/css/bootstrap-4.4.1.css" rel="stylesheet">
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./assets/icon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://haofeixu.github.io">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Related Projects
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://haofeixu.github.io/unimatch/">
+            UniMatch - TPAMI 2023
+          </a>
+          <a class="navbar-item" href="https://donydchen.github.io/mvsplat">
+            MVSplat - ECCV 2024 (Oral)
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">DepthSplat</h1>
+          <h2 class="title is-2 publication-title" style="margin-bottom: 0"><strong>Connecting Gaussian Splatting and Depth</strong></h2>
+
+          <div class="column is-full_width">
+          </div>
+          
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://haofeixu.github.io/">Haofei Xu</a><sup>1,2</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block">
+              <a href="https://pengsongyou.github.io/">Songyou Peng</a><sup>1</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block">
+              <a href="https://fangjinhuawang.github.io/">Fangjinhua Wang</a><sup>1</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block">
+              <a href="https://hermannblum.net/">Hermann Blum</a><sup>1</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=U9-D8DYAAAAJ">Daniel Barath</a><sup>1</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;<br>
+            <span class="author-block">
+            <a href="http://www.cvlibs.net/">Andreas Geiger</a><sup>2</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block">
+              <a href="https://people.inf.ethz.ch/marc.pollefeys/">Marc Pollefeys</a><sup>1,3</sup>
+            </span>
+          </div>
+
+          <!-- <br> -->
+
+          <!-- <div class="column is-full_width">
+            <h2 class="title is-4">xxx 2025</h2>
+          </div> -->
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>ETH Zurich</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block"><sup>2</sup>University of Tübingen, Tübingen AI Center</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block"><sup>3</sup>Microsoft</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2410.xxxxx"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/cvg/depthsplat"
+                   class="external-link button is-normal is-rounded is-dark disabled">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./assets/teaser.png" class="center">
+      <h2 class="subtitle has-text-centered" style="margin-top: 15px">
+        <b>DepthSplat enables cross-task interactions between Gaussian splatting and depth estimation.</b> <br>
+        <p style="font-size: 19px;">Left: Better depth leads to improved novel view synthesis with Gaussian splatting.</p>
+        <p style="font-size: 19px;">Right: Unsupervised depth pre-training with Gaussian splatting leads to reduced depth prediction error.</p>
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel" data-slides-to-show="2">
+        <div class="item item-flower">
+          <video poster="" id="flower" autoplay controls muted loop height="100%">
+            <source src="assets/video/re10k_2a695d52faf1949e.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item item-ancient">
+          <video poster="" id="ancient" autoplay controls muted loop height="100%">
+            <source src="assets/video/re10k_f80f0077f529c4d7.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-horns">
+          <video poster="" id="horns" autoplay controls muted loop height="100%">
+            <source src="assets/video/re10k_0e2653d00e3fc05a.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-leaves">
+          <video poster="" id="leaves" autoplay controls muted loop height="100%">
+            <source src="assets/video/re10k_6ca4076fadf3200e.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-leaves">
+          <video poster="" id="leaves" autoplay controls muted loop height="100%">
+            <source src="assets/video/re10k_c8de87bb03e6ba4c.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-leaves">
+          <video poster="" id="leaves" autoplay controls muted loop height="100%">
+            <source src="assets/video/re10k_c2e81ece6a48abb0.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+          
+      </div>
+    </div>
+  </div>
+   	<div align="center">
+      Feed-forward novel view synthesis (512x960) on unseen scenes from 6 input views.
+	</div>
+  <br>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- TL;DR -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3" style="margin-top: -30px">Summary</h2>
+        <div class="content has-text-justified">
+          <ul>
+            <li style="font-size:18px">We present DepthSplat to connect Gaussian splatting and single/multi-view depth estimation and study their interactions.</li>
+            <li style="font-size:18px">We contribute a robust multi-view depth model by leveraging pre-trained monocular depth features, leading to high-quality 3D Gaussian reconstructions.</li>
+            <li style="font-size:18px">We show that Gaussian splatting can serve as an unsupervised pre-training objective for learning powerful depth models from large-scale unlabelled datasets.</li>
+            <li style="font-size:18px">State-of-the-art performance on ScanNet, RealEstate10K and DL3DV datasets for both depth estimation and novel view synthesis tasks.</li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3" style="margin-top: -20px">Architecture</h2>
+
+        <img src="./assets/pipeline.png" class="center">
+
+        <h2 class="subtitle has-text-centered" style="margin-top: 15px">
+          Multi-view feature matching + monocular depth feature &rArr; high-quality depth and rendering <br>
+          Unsupervised depth pre-training with Gaussian splatting &rArr; improved depth accuracy
+        </h2>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3" style="margin-top: -20px">Unsupervised Pre-Training with Gaussian Splatting</h2>
+
+        <img src="./assets/gs_pretrain.png" class="center">
+
+        <h2 class="subtitle has-text-centered" style="margin-top: 15px">
+          Unsupervised pre-training consistently helps for both Abs Rel (left) and Delta1 (right) metrics. <br>
+          The improvements are especially significant on the challenging datasets like TartanAir and KITTI.
+        </h2>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3" style="margin-top: -20px">Different Number of Input Views</h2>
+
+        <img src="./assets/different_views.png" class="center">
+
+        <h2 class="subtitle has-text-centered" style="margin-top: 15px">
+          Our DepthSplat consistently outperforms MVSplat with different number of input views.
+        </h2>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3" style="margin-top: -20px">Comparisons</h2>
+
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 loop
+                 width="100%"
+                 style="margin-bottom: -20px;"
+                 >
+            <source src="./assets/video/dl3dv_compare1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 loop
+                 width="100%">
+            <source src="./assets/video/dl3dv_compare2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <h2 class="subtitle has-text-centered" style="margin-top: 15px">
+          Feed-forward view synthesis results from 6 input views on DL3DV dataset.
+        </h2>
+
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3" style="margin-top: -20px">Large-Scale Scene Synthesis</h2>
+
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 loop
+                 width="90%"
+                 style="margin-bottom: -20px;"
+                 >
+            <source src="./assets/video/dl3dv_sample1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 loop
+                 width="90%"
+                 style="margin-bottom: -20px;"
+                 >
+            <source src="./assets/video/dl3dv_sample2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <h2 class="subtitle has-text-centered" style="margin-top: 15px">
+          Feed-forward large-scale scene synthesis from 12 input views (512x960) on DL3DV dataset. <br>
+          (MVSplat runs OOM on this setting)
+        </h2>
+
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title" style="margin-top: -60px">BibTeX</h2>
+    <pre><code>@article{xu2024depthsplat,
+      title   = {DepthSplat: Connecting Gaussian Splatting and Depth},
+      author  = {Xu, Haofei and Peng, Songyou and Wang, Fangjinhua and Blum, Hermann and Barath, Daniel and Geiger, Andreas and Pollefeys, Marc},
+      journal = {arXiv preprint arXiv:2410.xxxxx},
+      year    = {2024}
+    }</code></pre>
+  </div>
+</section>
+
+
+<!-- footnote -->
+<table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+  <tr>
+    <td>
+      <br>
+      <p align="center">
+        <font size="2">
+          <a href="https://github.com/nerfies/nerfies.github.io">
+            <font size="2" color="lightgray">awesome webpage template</font>
+          </a>
+          <br>
+        </font>
+      </p>
+      <br>
+    </td>
+  </tr>
+</table>
+
+
+</body>
+</html>
