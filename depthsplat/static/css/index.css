@@ -155,3 +155,24 @@ body {
 #interpolation-image-wrapper img {
   border-radius: 5px;
 }
+
+/* Gradient style for "Depth" */
+.depth {
+  background: linear-gradient(90deg, #000080, #4B0082, #FF4500, #FFD700);
+  background-clip: text;
+  color: transparent;
+  transition: background-position 0.5s ease, transform 0.3s ease;
+  /* background-size: 200% 200%; */
+  background-size: 150%;
+}
+
+/* Regular style for "Splat" */
+.splat {
+  color: #0b0b0b; /* Solid color for "Splat" */
+}
+
+/* Hover effect for "Depth" gradient */
+.depth:hover {
+  background-position: right center; /* Shifts the gradient on hover */
+  transform: scale(1.1); /* Slight zoom effect */
+}
