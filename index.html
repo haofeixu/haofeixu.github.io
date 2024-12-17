@@ -57,6 +57,38 @@
         </table>
         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
 
+          <!-- PanSplat -->
+          <tr>
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <img src='assets/pansplat.jpg' width="160">
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://arxiv.org/abs/2412.12096">
+                <papertitle>PanSplat: 4K Panorama Synthesis with Feed-Forward Gaussian Splatting
+                </papertitle>
+              </a>
+              <br>
+              <a href="https://chengzhag.github.io/">Cheng Zhang</a>,
+              <strong>Haofei Xu</strong>,
+              <a href="https://wuqianyi.top/">Qianyi Wu</a>,
+              <a href="https://scholar.google.com/citations?user=gzCgAE8AAAAJ">Camilo Cruz Gambardella</a>,
+              <a href="https://dinhphung.ml/">Dinh Phung</a>,
+              <a href="https://jianfei-cai.github.io/">Jianfei Cai</a>
+              <!-- <br>
+              <em>European Conference on Computer Vision (<strong>ECCV</strong>)</em>, 2024 <font color="red"><strong>(Oral)</strong></font>
+              <br> -->
+              <br>
+              <a href="https://chengzhag.github.io/publication/pansplat/">project page</a>
+              /
+              <a href="https://github.com/chengzhag/PanSplat">code</a> 
+              /
+              <a href="https://www.youtube.com/watch?v=9bKZA2zxAbw">interactive 4K 360 demo</a> 
+              <p>
+                4K (2048x4096) panorama synthesis with a hierarchical feed-forward Gaussian splatting model.
+              </p>
+            </td>
+          </tr>
+
           <!-- DepthSplat -->
           <tr>
             <td style="padding:20px;width:25%;vertical-align:middle">
@@ -88,7 +120,75 @@
               <iframe src="https://ghbtns.com/github-btn.html?user=cvg&repo=depthsplat&type=star&count=true&size=small" frameborder="0" scrolling="0" width="100" height="20" title="GitHub"></iframe>
               <p></p>
               <p>
-                DepthSplat enables cross-task interactions between Gaussian splatting and depth estimation.
+                Cross-task interactions between Gaussian splatting and depth estimation.
+              </p>
+            </td>
+          </tr>
+
+          <!-- NoPoSplat -->
+          <tr>
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <video autoplay muted loop width="180">
+                <source src="assets/noposplat.mp4"
+                        type="video/mp4">
+              </video>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://arxiv.org/abs/2410.24207">
+                <papertitle>NoPoSplat: Surprisingly Simple 3D Gaussian Splats from Sparse Unposed Images
+                </papertitle>
+              </a>
+              <br>
+              <a href="https://botaoye.github.io/">Botao Ye</a>,
+              <a href="https://sifeiliu.net/">Sifei Liu</a>,
+              <strong>Haofei Xu</strong>,
+              <a href="https://sunshineatnoon.github.io/">Xueting Li</a>,
+              <a href="https://people.inf.ethz.ch/marc.pollefeys/">Marc Pollefeys</a>,
+              <a href="https://faculty.ucmerced.edu/mhyang/">Ming-Hsuan Yang</a>,
+              <a href="https://pengsongyou.github.io/">Songyou Peng</a>
+              <br>
+              <!-- <em>Neural Information Processing Systems (<strong>NeurIPS</strong>)</em>, 2024
+              <br> -->
+              <a href="https://noposplat.github.io/">project page</a>
+              /
+              <a href="https://github.com/cvg/NoPoSplat">code</a> 
+              <iframe src="https://ghbtns.com/github-btn.html?user=cvg&repo=NoPoSplat&type=star&count=true&size=small" frameborder="0" scrolling="0" width="100" height="20" title="GitHub"></iframe>
+              <p></p>
+              <p>
+                Unposed 3DGS reconstruction made easy.
+              </p>
+            </td>
+          </tr>
+
+          <!-- MVSplat360 -->
+          <tr>
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <video autoplay muted loop width="180">
+                <source src="assets/mvsplat360.mp4"
+                        type="video/mp4">
+              </video>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://arxiv.org/abs/2411.04924">
+                <papertitle>MVSplat360: Feed‑Forward 360 Scene Synthesis from Sparse Views
+                </papertitle>
+              </a>
+              <br>
+              <a href="https://donydchen.github.io/">Yuedong Chen</a>,
+              <a href="https://www.chuanxiaz.com/">Chuanxia Zheng</a>,
+              <strong>Haofei Xu</strong>,
+              <a href="https://bohanzhuang.github.io/">Bohan Zhuang</a>,
+              <a href="https://www.robots.ox.ac.uk/~vedaldi">Andrea Vedaldi</a>,
+              <a href="https://personal.ntu.edu.sg/astjcham/">Tat-Jen Cham</a>,
+              <a href="https://jianfei-cai.github.io/">Jianfei Cai</a>
+              <br>
+              <em>Neural Information Processing Systems (<strong>NeurIPS</strong>)</em>, 2024
+              <br>
+              <a href="https://donydchen.github.io/mvsplat360">project page</a>
+              /
+              <a href="https://github.com/donydchen/mvsplat360">code</a> 
+              <p>
+                Empowering MVSplat with a video diffusion model.
               </p>
             </td>
           </tr>
@@ -121,7 +221,7 @@
               <iframe src="https://ghbtns.com/github-btn.html?user=donydchen&repo=mvsplat&type=star&count=true&size=small" frameborder="0" scrolling="0" width="100" height="20" title="GitHub"></iframe>
               <p></p>
               <p>
-                A cost volume representation for efficiently predicting 3D Gaussians from sparse multi-view images in a single forward pass.
+                A cost volume representation for efficiently predicting 3D Gaussians from sparse multi-view images in a single feed-forward inference.
               </p>
             </td>
           </tr>
