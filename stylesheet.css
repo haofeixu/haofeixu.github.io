@@ -105,8 +105,10 @@ name {
   font-size: 32px;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+KuaiLe&display=swap');
+
 .chinese {
-  font-family: 'KaiTi', 'STKaiti', 'Kaiti SC', serif;
+  font-family: 'Ma Shan Zheng', 'ZCOOL KuaiLe', 'KaiTi', 'STKaiti', 'Kaiti SC', serif;
   font-size: 32px;
   vertical-align: 2px;
 }
