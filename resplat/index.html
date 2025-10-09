@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="ReSplat: Learning Recurrent Gaussian Splats">
+  <meta name="keywords" content="Gaussian Splatting, Recurrent Network, Novel View Synthesis, 3D Reconstruction">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap -->
+  <link href="static/css/bootstrap-4.4.1.css" rel="stylesheet">
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./assets/icon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://haofeixu.github.io">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Related Projects
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://donydchen.github.io/mvsplat">
+            MVSplat - ECCV 2024 (Oral)
+          </a>
+          <a class="navbar-item" href="https://noposplat.github.io/">
+            NoPoSplat - ICLR 2025 (Oral)
+          </a>
+          <a class="navbar-item" href="https://haofeixu.github.io/depthsplat/">
+            DepthSplat - CVPR 2025
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+<title>ReSplat</title>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h2 class="title is-2 publication-title" style="margin-bottom: 0"><strong>ReSplat: Learning Recurrent Gaussian Splats</strong></h2>
+
+          <div class="column is-full_width">
+          </div>
+          
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://haofeixu.github.io/">Haofei Xu</a><sup>1,2</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=U9-D8DYAAAAJ">Daniel Barath</a><sup>1</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block">
+            <a href="http://www.cvlibs.net/">Andreas Geiger</a><sup>2</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block">
+              <a href="https://people.inf.ethz.ch/marc.pollefeys/">Marc Pollefeys</a><sup>1,3</sup>
+            </span>
+          </div>
+
+          <!-- <br> -->
+
+          <!-- <div class="column is-full_width">
+            <h2 class="title is-4">CVPR 2025</h2>
+          </div> -->
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>ETH Zurich</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block"><sup>2</sup>University of Tübingen, Tübingen AI Center</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block"><sup>3</sup>Microsoft</span>&nbsp;&nbsp;&nbsp;&nbsp;
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2510.xxxxx"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <!-- <span class="link-block">
+                <a href="https://github.com/cvg/depthsplat"
+                   class="external-link button is-normal is-rounded is-dark disabled">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span> -->
+              <!-- HuggingFace Link. -->
+              <!-- <span class="link-block">
+                <a href="https://huggingface.co/haofeixu/depthsplat"
+                   class="external-link button is-normal is-rounded is-dark disabled">
+                  <span class="icon">
+                      <img width="20" alt="HuggingFace logo" src="../unimatch/static/images/huggingface.png"/>
+                  </span>
+                  <span>Model</span>
+                  </a>
+              </span> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./assets/teaser.png" class="center">
+      <h2 class="subtitle has-text-centered" style="margin-top: 15px">
+        <b>ReSplat enables recurrent Gaussian splats reconstruction in a feed-forward manner.</b> <br>
+        <p style="font-size: 19px;">As initialization (iteration 0), we introduce a compact and expressive feed-forward model to produce 16x fewer Gaussians than pixel-aligned feed-forward models while still achieving better results.</p>
+        <p style="font-size: 19px;">ReSplat is able to benefit from additional test-time compute with more iterations.</p>
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel" data-slides-to-show="2">
+        <div class="item item-flower">
+          <video poster="" id="flower" autoplay controls muted loop height="100%">
+            <source src="assets/video/dl3dv_14eb4.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item item-ancient">
+          <video poster="" id="ancient" autoplay controls muted loop height="100%">
+            <source src="assets/video/dl3dv_4ae79.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-horns">
+          <video poster="" id="horns" autoplay controls muted loop height="100%">
+            <source src="assets/video/dl3dv_6d81c5.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-leaves">
+          <video poster="" id="leaves" autoplay controls muted loop height="100%">
+            <source src="assets/video/dl3dv_0bfdd.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-leaves">
+          <video poster="" id="leaves" autoplay controls muted loop height="100%">
+            <source src="assets/video/dl3dv_0a1b7c.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+          
+      </div>
+    </div>
+  </div>
+   	<div align="center">
+      <b>Feed-forward novel view synthesis (512x960) on unseen scenes from 16 input views with ~500K Gaussians (16x fewer than pixel-aligned models).</b>
+	</div>
+  <br>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- TL;DR -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3" style="margin-top: -30px">Abstract</h2>
+        <div class="content has-text-justified">
+          While feed-forward Gaussian splatting models provide computational efficiency and effectively handle sparse input settings, their performance is fundamentally limited by the reliance on a single forward pass during inference. We propose ReSplat, a feed-forward recurrent Gaussian splatting model that iteratively refines 3D Gaussians without explicitly computing gradients. Our key insight is that the Gaussian splatting rendering error serves as a rich feedback signal, guiding the recurrent network to learn effective Gaussian updates. This feedback signal naturally adapts to unseen data distributions at test time, enabling robust generalization.
+          To initialize the recurrent process, we introduce a compact reconstruction model that operates in a 16x subsampled space, producing 16x fewer Gaussians than previous per-pixel Gaussian models. 
+          This substantially reduces computational overhead and allows for efficient Gaussian updates.
+          Extensive experiments across varying of input views (2, 8, 16), resolutions (256x256 to 540x960), and datasets (DL3DV and RealEstate10K) demonstrate that our method achieves state-of-the-art performance while significantly reducing the number of Gaussians and improving the rendering speed.
+
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3" style="margin-top: -20px">Approach</h2>
+
+        <img src="./assets/pipeline.png" class="center">
+
+        <h2 class="subtitle has-text-centered" style="margin-top: 15px">
+          Compact initialization with 16x fewer Gaussians than pixel-aligned models. <br>
+          Recurrent Gaussian update by using the rendering error as a feedback.
+        </h2>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3" style="margin-top: -20px">State-of-the-art Performance</h2>
+
+        <img src="./assets/sota_compare.png" class="center">
+
+        <h2 class="subtitle has-text-centered" style="margin-top: 15px">
+          On RealEstate10K, ReSplat achieves performance similar to LVSM while offering 20x faster rendering speed thanks to its efficient 3DGS representation.
+          On DL3DV, ReSplat surpasses previous methods by a clear margin, while using 4x-16x fewer Gaussians than pixel-aligned models.
+        </h2>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3" style="margin-top: -20px">Robust Generalization</h2>
+
+        <img src="./assets/generalization.png" class="center">
+
+        <h2 class="subtitle has-text-centered" style="margin-top: 15px">
+          ReSplat leverages the rendering error as a feedback signal, allowing it to adapt to the test data and thereby achieve better generalization to unseen scenarios, such as new datasets and resolutions.
+        </h2>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3" style="margin-top: -20px">Comparisons</h2>
+
+        <img src="./assets/dl3dv_compare.png" class="center">
+      
+        <h2 class="subtitle has-text-centered" style="margin-top: 15px">
+          ReSplat produces better novel view synthesis results than prior methods on DL3DV.
+        </h2>
+
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title" style="margin-top: -60px">BibTeX</h2>
+    <pre><code>@article{xu2025resplat,
+      title={ReSplat: Learning Recurrent Gaussian Splats},
+      author={Xu, Haofei and Barath, Daniel and Geiger, Andreas and Pollefeys, Marc},
+      journal={arXiv preprint arXiv:2510.xxxxx},
+      year={2025}
+    }</code></pre>
+  </div>
+</section>
+
+
+<!-- footnote -->
+<table width="100%" align="center" border="0" cellspacing="0" cellpadding="20">
+  <tr>
+    <td>
+      <br>
+      <p align="center">
+        <font size="2">
+          <a href="https://github.com/nerfies/nerfies.github.io">
+            <font size="2" color="lightgray">awesome webpage template</font>
+          </a>
+          <br>
+        </font>
+      </p>
+      <br>
+    </td>
+  </tr>
+</table>
+
+
+</body>
+</html>
